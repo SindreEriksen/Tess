@@ -6,6 +6,7 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
     private String elise = "Sindre";
+    private String elise = "Sarah";
     
 
     @Override
