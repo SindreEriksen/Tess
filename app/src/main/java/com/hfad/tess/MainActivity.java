@@ -7,7 +7,10 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String elise = "Elise";
+    private String elise = "Sindre";
+    private String elise = "Sarah";
+
+
 
     private SQLiteDatabase db;
 
