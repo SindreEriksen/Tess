@@ -1,7 +1,12 @@
 package com.hfad.tess;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,11 +18,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private String[][] latLong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -41,5 +48,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(60.16, 10.25);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Hønefoss"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        Double latlong[][] = getLatLongs();
+        int i = 0;
+        while (i<1) {
+            LatLng ll = new LatLng(latlong[i][0], latlong[i][1]);
+            mMap.addMarker(new MarkerOptions().position(ll).title("Marker in Hønefoss"));
+            i++;
+        }
+    }
+
+    public Double[][] getLatLongs(){
+
+        SQLiteOpenHelper dbHelper = new DBHelper(this);
+
+        SQLiteDatabase sampleDB = dbHelper.getReadableDatabase();
+        Cursor c = sampleDB.query("aktivitet", new String[]{"latitude", "longitude"},
+                "navn = ?", new String[] {"Tusenfryd"}, null, null, null);
+        Double[][] aryDB = new Double[1][2];
+        int i = 0;
+        if (c != null ) {
+            if  (c.moveToFirst()) {
+                do {
+
+                    Double latitude = c.getDouble(c.getColumnIndex("latitude"));
+                    Double longitude = c.getDouble(c.getColumnIndex("longitude"));
+                    aryDB[i][0] = latitude;
+                    aryDB[i][1] = longitude;
+                    i++;
+                }while (c.moveToNext());
+            }
+        }
+        return aryDB;
     }
 }

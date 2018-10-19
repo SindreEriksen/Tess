@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_name = "testDB";
-    private static final int DB_version = 1;
+    private static final int DB_version = 2;
 
     private String createAktivitetTypeQuery = "CREATE TABLE aktivitet_type (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT);";
     private String createPrisnivåQuery = "CREATE TABLE prisnivå (_id INTEGER PRIMARY KEY AUTOINCREMENT, prisnivå TEXT);";
@@ -84,7 +84,11 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         if (oldVersion < 3) {
             insertAktivitet(db, "Liseberg", "Fornøyelsespark i Gøteborg", 1, "https://www.liseberg.se", 3, true);
-
+        }
+        if (oldVersion < 4) {
+            db.execSQL("ALTER TABLE aktivitet ADD COLUMN latitude REAL;");
+            db.execSQL("ALTER TABLE aktivitet ADD COLUMN longitude REAL;");
+            db.execSQL("UPDATE aktivitet SET latitude = '59.7490', longitude = '10.7783' WHERE navn = 'Tusenfryd';");
         }
     }
 
