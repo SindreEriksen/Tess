@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,15 +23,15 @@ public class MainActivity extends AppCompatActivity {
 
         ListView aktivtetsliste = findViewById(R.id.aktivtetsliste);
 
+
         //Database
         SQLiteOpenHelper dbHelper = new DBHelper(this);
         //Prøver å opprette database og hente ut data. Sender feilmelding hvis det ikke går
 
         try {
             db = dbHelper.getReadableDatabase();
-
-            cursor = db.query("aktivitet", new String[] {"_id", "navn", "beskrivelse"}, null, null, null, null, null);
-            SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, new String[]{"navn", "beskrivelse"}, new int[]{android.R.id.text1, android.R.id.text2 },0);
+            cursor = db.query("aktivitet", new String[] {"_id", "navn", "beskrivelse"},null, null, null, null, null);
+            SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, new String[]{"navn"}, new int[]{android.R.id.text1},0);
             aktivtetsliste.setAdapter(listAdapter);
         } catch(SQLiteException e) {
             Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);

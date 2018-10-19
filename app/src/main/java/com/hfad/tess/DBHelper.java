@@ -8,11 +8,11 @@ import android.support.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DB_name = "TessDatabase";
+    private static final String DB_name = "testDB";
     private static final int DB_version = 1;
 
-    private String createAktivitetTypeQuery = "CREATE TABLE aktivitet_type (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT)";
-    private String createPrisnivåQuery = "CREATE TABLE prisnivå (_id INTEGER PRIMARY KEY AUTOINCREMENT, prisnivå TEXT)";
+    private String createAktivitetTypeQuery = "CREATE TABLE aktivitet_type (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT);";
+    private String createPrisnivåQuery = "CREATE TABLE prisnivå (_id INTEGER PRIMARY KEY AUTOINCREMENT, prisnivå TEXT);";
 
     private String createAktivitetQuery = "CREATE TABLE aktivitet (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                                             + "navn TEXT,"
@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
                                             + "utendørs NUMERIC,"
                                             + "FOREIGN KEY (type) REFERENCES aktivitet_type(_id),"
                                             + "FOREIGN KEY (prisnivå) REFERENCES prisnivå(_id)"
-                                            + ")";
+                                            + ");";
 
     public DBHelper(@Nullable Context context) {
         super(context, DB_name, null, DB_version);
@@ -31,24 +31,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        db.execSQL(createAktivitetTypeQuery);
-        db.execSQL(createPrisnivåQuery);
-        db.execSQL(createAktivitetQuery);
-
-        insertAktivitetType(db, "Fornøyelsespark");
-        insertAktivitetType(db, "Badeland");
-        insertPrisnivå(db, "Lav");
-        insertPrisnivå(db, "Medium");
-        insertPrisnivå(db, "Høy");
-        insertAktivitet(db, "Tusenfryd", "Fornøyelsespark i Ås, Akershus. Karuseller og berg-og-dalbaner pluss mye mer", 1, "www.tusenfryd.no", 3, true);
-        insertAktivitet(db, "Bø Sommarland", "Badeland i Bø, Telemark. Masse vann og moro", 2, "www.sommarland.no", 2, true);
-
+        updateMyDatabase(db, 0, DB_version);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        updateMyDatabase(db, oldVersion, DB_version);
     }
 
     private static void insertAktivitetType(SQLiteDatabase db, String type) {
@@ -73,4 +61,31 @@ public class DBHelper extends SQLiteOpenHelper {
         aktivitetValues.put("utendørs", utendørs);
         db.insert("aktivitet", null, aktivitetValues);
     }
+
+    private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if (oldVersion < 1) {
+            db.execSQL(createAktivitetTypeQuery);
+            db.execSQL(createPrisnivåQuery);
+            db.execSQL(createAktivitetQuery);
+
+            insertAktivitetType(db, "Fornøyelsespark");
+            insertAktivitetType(db, "Badeland");
+
+            insertPrisnivå(db, "Lav");
+            insertPrisnivå(db, "Medium");
+            insertPrisnivå(db, "Høy");
+
+            insertAktivitet(db, "Bø Sommarland", "Badeland i Bø, Telemark. Masse vann og moro", 2, "www.sommarland.no", 2, true);
+            insertAktivitet(db, "Tusenfryd", "Fornøyelsespark i Ås, Akershus. Karuseller og berg-og-dalbaner pluss mye mer", 1, "www.tusenfryd.no", 3, true);
+        }
+        if (oldVersion < 2) {
+            insertAktivitet(db, "Kongeparken", "Fornøyelsespark i Stavanger", 1, "https://www.kongeparken.no", 2, true);
+            insertAktivitet(db, "Hunderfossen", "Troll og moro for små og store barn", 1, "www.hunderfossen.no", 3, true);
+        }
+        if (oldVersion < 3) {
+            insertAktivitet(db, "Liseberg", "Fornøyelsespark i Gøteborg", 1, "https://www.liseberg.se", 3, true);
+
+        }
+    }
+
 }
