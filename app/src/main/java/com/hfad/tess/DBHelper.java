@@ -8,8 +8,8 @@ import android.support.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DB_name = "testDB";
-    private static final int DB_version = 2;
+    private static final String DB_name = "testDB3";
+    private static final int DB_version = 1;
 
     private String createAktivitetTypeQuery = "CREATE TABLE aktivitet_type (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT);";
     private String createPrisnivåQuery = "CREATE TABLE prisnivå (_id INTEGER PRIMARY KEY AUTOINCREMENT, prisnivå TEXT);";
@@ -21,6 +21,8 @@ public class DBHelper extends SQLiteOpenHelper {
                                             + "hjemmeside TEXT,"
                                             + "prisnivå INTEGER,"
                                             + "utendørs NUMERIC,"
+                                            + "latitude REAL,"
+                                            + "longitude REAL,"
                                             + "FOREIGN KEY (type) REFERENCES aktivitet_type(_id),"
                                             + "FOREIGN KEY (prisnivå) REFERENCES prisnivå(_id)"
                                             + ");";
@@ -51,7 +53,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert("prisnivå", null, prisnivåValues);
     }
 
-    private static void insertAktivitet(SQLiteDatabase db, String navn, String beskrivelse, int type, String hjemmeside, int prisnivå, boolean utendørs) {
+    private static void insertAktivitet(SQLiteDatabase db, String navn, String beskrivelse, int type, String hjemmeside, int prisnivå, boolean utendørs, double latitude, double longitude) {
         ContentValues aktivitetValues = new ContentValues();
         aktivitetValues.put("navn", navn);
         aktivitetValues.put("beskrivelse", beskrivelse);
@@ -59,6 +61,8 @@ public class DBHelper extends SQLiteOpenHelper {
         aktivitetValues.put("hjemmeside", hjemmeside);
         aktivitetValues.put("prisnivå", prisnivå);
         aktivitetValues.put("utendørs", utendørs);
+        aktivitetValues.put("latitude", latitude);
+        aktivitetValues.put("longitude", longitude);
         db.insert("aktivitet", null, aktivitetValues);
     }
 
@@ -75,20 +79,17 @@ public class DBHelper extends SQLiteOpenHelper {
             insertPrisnivå(db, "Medium");
             insertPrisnivå(db, "Høy");
 
-            insertAktivitet(db, "Bø Sommarland", "Badeland i Bø, Telemark. Masse vann og moro", 2, "www.sommarland.no", 2, true);
-            insertAktivitet(db, "Tusenfryd", "Fornøyelsespark i Ås, Akershus. Karuseller og berg-og-dalbaner pluss mye mer", 1, "www.tusenfryd.no", 3, true);
+            insertAktivitet(db, "Bø Sommarland", "Badeland i Bø, Telemark. Masse vann og moro", 2, "www.sommarland.no", 2, true, 59.4472, 9.0727);
+            insertAktivitet(db, "Tusenfryd", "Fornøyelsespark i Ås, Akershus. Karuseller og berg-og-dalbaner pluss mye mer", 1, "www.tusenfryd.no", 3, true, 59.7490, 10.7783);
+            insertAktivitet(db, "Kongeparken", "Fornøyelsespark i Stavanger", 1, "https://www.kongeparken.no", 2, true,  58.7775, 5.8414);
+            insertAktivitet(db, "Hunderfossen", "Troll og moro for små og store barn", 1, "www.hunderfossen.no", 3, true, 61.2197, 10.4390);
+            insertAktivitet(db, "Liseberg", "Fornøyelsespark i Gøteborg", 1, "https://www.liseberg.se", 3, true,  57.6969, 11.9903);
         }
         if (oldVersion < 2) {
-            insertAktivitet(db, "Kongeparken", "Fornøyelsespark i Stavanger", 1, "https://www.kongeparken.no", 2, true);
-            insertAktivitet(db, "Hunderfossen", "Troll og moro for små og store barn", 1, "www.hunderfossen.no", 3, true);
         }
         if (oldVersion < 3) {
-            insertAktivitet(db, "Liseberg", "Fornøyelsespark i Gøteborg", 1, "https://www.liseberg.se", 3, true);
         }
         if (oldVersion < 4) {
-            db.execSQL("ALTER TABLE aktivitet ADD COLUMN latitude REAL;");
-            db.execSQL("ALTER TABLE aktivitet ADD COLUMN longitude REAL;");
-            db.execSQL("UPDATE aktivitet SET latitude = '59.7490', longitude = '10.7783' WHERE navn = 'Tusenfryd';");
         }
     }
 
