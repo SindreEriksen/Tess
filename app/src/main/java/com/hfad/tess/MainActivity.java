@@ -5,11 +5,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -19,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SQLiteDatabase db;
     private Cursor cursor;
+    Button btnGetAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ListView aktivtetsliste = findViewById(R.id.aktivtetsliste);
+        btnGetAll = (Button)findViewById(R.id.btnGetAll);
+        viewAll();
 
 
         //Database
@@ -60,6 +67,35 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void viewAll() {
+        btnGetAll.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Cursor res = db.getAllAktivitet();
+                        //if ==0, finnes ikke noe data/aktiviteter i databasen
+                        if (res.getCount() == 0) {
+                            showMessage("Error", "Ingen aktiviteter funnet");
+                            return;
+                        }
+                        StringBuffer buffer = new StringBuffer();
+                        while (res.moveToNext()) {
+                            buffer.append("_Id:" + res.getString(0) + "\n");
+                            buffer.append("navn:" + res.getString(0) + "\n");
+                        }
+                        //hvis alle aktiviteter i databasen
+                        showMessage("Aktiviteter", buffer.toString());
+                    }
+                }
+        );
+    }
+    public void showMessage(String title, String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 
     public void onDestroy() {
