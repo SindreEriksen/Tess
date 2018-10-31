@@ -93,12 +93,6 @@ public class DBHelper extends SQLiteOpenHelper {
         if (oldVersion < 4) {
         }
     }
-    public Cursor getAllAktivitet() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from"+ TABLE_NAME, null);
-        return  res;
-    }
-
 }
 
 

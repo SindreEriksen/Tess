@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     private SQLiteDatabase db;
     private Cursor cursor;
-    Button btnGetAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ListView aktivtetsliste = findViewById(R.id.aktivtetsliste);
-        btnGetAll = (Button)findViewById(R.id.btnGetAll);
-        viewAll();
-
 
         //Database
         SQLiteOpenHelper dbHelper = new DBHelper(this);
@@ -67,35 +63,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-    public void viewAll() {
-        btnGetAll.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Cursor res = db.getAllAktivitet();
-                        //if ==0, finnes ikke noe data/aktiviteter i databasen
-                        if (res.getCount() == 0) {
-                            showMessage("Error", "Ingen aktiviteter funnet");
-                            return;
-                        }
-                        StringBuffer buffer = new StringBuffer();
-                        while (res.moveToNext()) {
-                            buffer.append("_Id:" + res.getString(0) + "\n");
-                            buffer.append("navn:" + res.getString(0) + "\n");
-                        }
-                        //hvis alle aktiviteter i databasen
-                        showMessage("Aktiviteter", buffer.toString());
-                    }
-                }
-        );
-    }
-    public void showMessage(String title, String Message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(Message);
-        builder.show();
     }
 
     public void onDestroy() {
