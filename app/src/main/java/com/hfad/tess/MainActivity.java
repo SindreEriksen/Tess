@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SQLiteDatabase db;
     private Cursor cursor;
-    private String sindre;
+    private String thomas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
