@@ -2,4 +2,5 @@
     <string name="app_name">Tess</string>
     <string name="title_activity_maps">Map</string>
     <string name="seKart">Se kart</string>
+    <string name="demo_card_text">Demo card text</string>
 </resources>

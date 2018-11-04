@@ -5,25 +5,28 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Message;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     private SQLiteDatabase db;
     private Cursor cursor;
-    private String sindre;
+
+    private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mDescriptions = new ArrayList<>();
+    private ArrayList<String> mImagesURLs = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,21 +35,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ListView aktivtetsliste = findViewById(R.id.aktivtetsliste);
-
         //Database
         SQLiteOpenHelper dbHelper = new DBHelper(this);
-        //Prøver å opprette database og hente ut data. Sender feilmelding hvis det ikke går
 
+        //Prøver å opprette database og hente ut data. Sender feilmelding hvis det ikke går
         try {
             db = dbHelper.getReadableDatabase();
-            cursor = db.query("aktivitet", new String[] {"_id", "navn", "beskrivelse"},null, null, null, null, null);
-            SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, new String[]{"navn"}, new int[]{android.R.id.text1},0);
-            aktivtetsliste.setAdapter(listAdapter);
         } catch(SQLiteException e) {
             Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);
             dbToast.show();
         }
+
+        initListItems(dbHelper);
     } // end onCreate()
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,6 +63,34 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void initListItems(SQLiteOpenHelper dbHelper) {
+        Log.d(TAG, "initListItems: called");
+        try {
+        db = dbHelper.getReadableDatabase();
+        cursor = db.rawQuery("Select navn, beskrivelse, bildeURL from aktivitet", null);
+        cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                mNames.add(cursor.getString(0));
+                mDescriptions.add(cursor.getString(1));
+                mImagesURLs.add(cursor.getString(2));
+                cursor.moveToNext();
+            }
+        } catch(SQLiteException e) {
+            Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);
+            dbToast.show();
+        }
+
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        Log.d(TAG, "initRecyclerView: called");
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mImagesURLs, mNames, mDescriptions, this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void onDestroy() {
