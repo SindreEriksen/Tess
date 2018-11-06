@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mDescriptions = new ArrayList<>();
     private ArrayList<String> mImagesURLs = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         initListItems(dbHelper);
+
     } // end onCreate()
 
     public boolean onCreateOptionsMenu(Menu menu) {
