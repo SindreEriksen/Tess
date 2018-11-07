@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> mDescriptions = new ArrayList<>();
     private ArrayList<String> mImagesURLs = new ArrayList<>();
 
-
+    Button button;
+    GPSLocation gps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,19 @@ public class MainActivity extends AppCompatActivity {
 
         initListItems(dbHelper);
 
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gps = new GPSLocation(MainActivity.this);
+                if(gps.CanGetLocation()) {
+                    double latitude = gps.getGPSLatitude();
+                    double longitude = gps.getGPSLongitude();
+
+                    Toast.makeText(getApplicationContext(), "latitude " + latitude + " longitude " + longitude, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     } // end onCreate()
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,5 +116,7 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
         db.close();
     }
+
+
 }
 
