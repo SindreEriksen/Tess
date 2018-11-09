@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> mDescriptions = new ArrayList<>();
     private ArrayList<String> mImagesURLs = new ArrayList<>();
 
-    Button button;
+    Button button, btn_lesMer;
     GPSLocation gps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         initListItems(dbHelper);
 
-        button = (Button) findViewById(R.id.button);
+        button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
     } // end onCreate()
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
     private void initListItems(SQLiteOpenHelper dbHelper) {
         Log.d(TAG, "initListItems: called");
