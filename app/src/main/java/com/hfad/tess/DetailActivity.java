@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -41,6 +42,8 @@ public class DetailActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         id = intent.getExtras().getString("id");
@@ -81,7 +84,7 @@ public class DetailActivity extends AppCompatActivity {
         try {
             db = dbHelper.getReadableDatabase();
             String[] args = { id };
-            cursor = db.rawQuery("Select navn, beskrivelse, type, hjemmeside, prisnivå, utendørs, bildeURL from aktivitet WHERE _id =?"  , args);
+            cursor = db.rawQuery("Select navn, beskrivelse, type, hjemmeside, prisnivå, utendørs, bildeURL from aktivitet WHERE navn =?"  , args);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 name = cursor.getString(0);
@@ -117,11 +120,13 @@ public class DetailActivity extends AppCompatActivity {
         txt_prisnivå = findViewById(R.id.txt_prisnivå);
         txt_prisnivå.setText(price);
         txt_utendørs = findViewById(R.id.txt_utendørs);
+        /*
         if (outdoor == false) {
             txt_utendørs.setText("Innendørs");
         } else {
             txt_utendørs.setText("Utendørs");
         }
+        */
         txt_type = findViewById(R.id.txt_type);
         txt_type.setText(type);
         txt_hjemmeside = findViewById(R.id.txt_hjemmeside);

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Cursor cursor;
 
     private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mDescriptions = new ArrayList<>();
+    private ArrayList<String> mTypes = new ArrayList<>();
     private ArrayList<String> mImagesURLs = new ArrayList<>();
 
     Button button, btn_lesMer;
@@ -65,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+/* Metode for å sortere aktivitetene
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortListItems(dbHelper, "Fornøyelsespark");
+            }
+        });
+
+        */
 
     } // end onCreate()
 
@@ -89,11 +98,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "initListItems: called");
         try {
         db = dbHelper.getReadableDatabase();
-        cursor = db.rawQuery("Select navn, beskrivelse, bildeURL from aktivitet", null);
+        cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet", null);
         cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 mNames.add(cursor.getString(0));
-                mDescriptions.add(cursor.getString(1));
+                mTypes.add(cursor.getString(1));
                 mImagesURLs.add(cursor.getString(2));
                 cursor.moveToNext();
             }
@@ -109,11 +118,11 @@ public class MainActivity extends AppCompatActivity {
         try {
             String[] args = { sortArgument };
             db = dbHelper.getReadableDatabase();
-            cursor = db.rawQuery("Select navn, beskrivelse, bildeURL from aktivitet WHERE _id =?", args);
+            cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE type =?", args);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 mNames.add(cursor.getString(0));
-                mDescriptions.add(cursor.getString(1));
+                mTypes.add(cursor.getString(1));
                 mImagesURLs.add(cursor.getString(2));
                 cursor.moveToNext();
             }
@@ -127,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: called");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mImagesURLs, mNames, mDescriptions, this);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mImagesURLs, mNames, mTypes, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

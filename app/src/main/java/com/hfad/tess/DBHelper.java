@@ -12,7 +12,7 @@ import android.support.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DB_name = "DB4";
+    private static final String DB_name = "DB5";
     private static final int DB_version = 1;
 
     private String createAktivitetQuery = "CREATE TABLE aktivitet (_id INTEGER PRIMARY KEY AUTOINCREMENT, "

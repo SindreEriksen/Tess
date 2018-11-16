@@ -50,13 +50,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
         Log.d(TAG, "onBindViewHolder: called");
 
+        final String intentName = mNames.get(position);
+
         Glide.with(mContext)
                 .asBitmap()
                 .load(mImages.get(position))
                 .into(viewHolder.header_image);
 
         viewHolder.txt_name.setText(mNames.get(position));
-        viewHolder.txt_type.setText(mDescriptions.get(position));
+        //viewHolder.txt_type.setText(mDescriptions.get(position));
 
         viewHolder.parent_layout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -68,7 +70,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
               @Override
               public void onClick(View v) {
                   Intent intent = new Intent(v.getContext(), DetailActivity.class);
-                  intent.putExtra("id", "1");
+                  intent.putExtra("id", intentName);
                   v.getContext().startActivity(intent);
               }
           }
@@ -92,9 +94,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             header_image = itemView.findViewById(R.id.img_header);
             txt_name = itemView.findViewById(R.id.txt_name);
-            txt_type = itemView.findViewById(R.id.txt_description);
+            txt_type = itemView.findViewById(R.id.txt_type);
             parent_layout = itemView.findViewById(R.id.parent_layout);
             btn_lesMer = itemView.findViewById(R.id.btn_material);
         }
     }
+
 }
