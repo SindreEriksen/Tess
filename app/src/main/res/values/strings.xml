@@ -3,4 +3,12 @@
     <string name="title_activity_maps">Map</string>
     <string name="seKart">Se kart</string>
     <string name="demo_card_text">Demo card text</string>
+    <string name="long_demo_text">Lisa gikk til skolen. TrippeTripp det sa. I den nye kjolen, trippet hun så glad.</string>
+    <string name="two_word_demo_text">Demnonstasjon demo</string>
+    <string name="demo_text">Demo</string>
+    <string name="send">Send melding</string>
+    <string name="utendørs">Inne/ute?</string>
+    <string name="prisnivå">Prisnivå:</string>
+    <string name="type">Type aktivitet:</string>
+    <string name="lesMer">Les mer</string>
 </resources>

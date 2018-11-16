@@ -101,7 +101,26 @@ public class MainActivity extends AppCompatActivity {
             Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);
             dbToast.show();
         }
+        initRecyclerView();
+    }
 
+    private void sortListItems(SQLiteOpenHelper dbHelper, String sortArgument) {
+        Log.d(TAG, "initListItems: called");
+        try {
+            String[] args = { sortArgument };
+            db = dbHelper.getReadableDatabase();
+            cursor = db.rawQuery("Select navn, beskrivelse, bildeURL from aktivitet WHERE _id =?", args);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                mNames.add(cursor.getString(0));
+                mDescriptions.add(cursor.getString(1));
+                mImagesURLs.add(cursor.getString(2));
+                cursor.moveToNext();
+            }
+        } catch(SQLiteException e) {
+            Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);
+            dbToast.show();
+        }
         initRecyclerView();
     }
 

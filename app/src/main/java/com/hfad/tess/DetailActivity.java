@@ -26,7 +26,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private String name, description, imageURL, price, type, homepage;
     private Boolean outdoor;
-    private TextView txt_name, txt_description, txt_prisnivå, txt_utendørs, txt_type, txt_hjemmeside, egenskaper;
+    private TextView txt_name, txt_description, txt_prisnivå, txt_utendørs, txt_type, txt_hjemmeside;
     private ImageView img_header;
 
     private String id;
@@ -117,12 +117,12 @@ public class DetailActivity extends AppCompatActivity {
         txt_prisnivå = findViewById(R.id.txt_prisnivå);
         txt_prisnivå.setText(price);
         txt_utendørs = findViewById(R.id.txt_utendørs);
-        if (!outdoor) {
+        if (outdoor == false) {
             txt_utendørs.setText("Innendørs");
         } else {
             txt_utendørs.setText("Utendørs");
         }
-        txt_type = findViewById(R.id.txt_description);
+        txt_type = findViewById(R.id.txt_type);
         txt_type.setText(type);
         txt_hjemmeside = findViewById(R.id.txt_hjemmeside);
         txt_hjemmeside.setText(homepage);
