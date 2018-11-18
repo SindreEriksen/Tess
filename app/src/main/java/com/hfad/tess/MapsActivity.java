@@ -4,11 +4,15 @@ package com.hfad.tess;
  * Created by Elise
  */
 
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,8 +26,11 @@ import static java.lang.Double.parseDouble;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    GPSLocation gps;
     private GoogleMap mMap;
     private String[][] latLong;
+    private Double phoneLat;
+    private Double phoneLong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +55,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Hønefoss and move the camera
-        LatLng sydney = new LatLng(60.16, 10.25);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Hønefoss"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
         String latlong[][] = getLatLongs();
         int i = 0;
         while (i<5) {
@@ -62,6 +63,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng ll = new LatLng(lat, lng);
             mMap.addMarker(new MarkerOptions().position(ll).title(latlong[i][0]));
             i++;
+        }
+
+        gps = new GPSLocation(MapsActivity.this);
+        if (gps.CanGetLocation()) {
+            phoneLat = gps.getGPSLatitude();
+            phoneLong = gps.getGPSLongitude();
+            // Adds a marker for phones position
+            LatLng phone = new LatLng(phoneLat, phoneLong);
+            mMap.addMarker(new MarkerOptions().position(phone).title("Du er her"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(phone));
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Kan ikke hente telefonenes lokasjon", Toast.LENGTH_SHORT).show();
         }
     }
 

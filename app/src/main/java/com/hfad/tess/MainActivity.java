@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,9 +26,11 @@ public class MainActivity extends AppCompatActivity {
     private Cursor cursor;
 
     private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mDescriptions = new ArrayList<>();
+    private ArrayList<String> mTypes = new ArrayList<>();
     private ArrayList<String> mImagesURLs = new ArrayList<>();
 
+    Button button, btn_lesMer;
+    GPSLocation gps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         initListItems(dbHelper);
+
+        button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gps = new GPSLocation(MainActivity.this);
+                if(gps.CanGetLocation()) {
+                    double latitude = gps.getGPSLatitude();
+                    double longitude = gps.getGPSLongitude();
+
+                    Toast.makeText(getApplicationContext(), "latitude " + latitude + " longitude " + longitude, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+/* Metode for å sortere aktivitetene
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortListItems(dbHelper, "Fornøyelsespark");
+            }
+        });
+
+        */
+
     } // end onCreate()
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,15 +93,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void initListItems(SQLiteOpenHelper dbHelper) {
         Log.d(TAG, "initListItems: called");
         try {
         db = dbHelper.getReadableDatabase();
-        cursor = db.rawQuery("Select navn, beskrivelse, bildeURL from aktivitet", null);
+        cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet", null);
         cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 mNames.add(cursor.getString(0));
-                mDescriptions.add(cursor.getString(1));
+                mTypes.add(cursor.getString(1));
                 mImagesURLs.add(cursor.getString(2));
                 cursor.moveToNext();
             }
@@ -81,14 +110,33 @@ public class MainActivity extends AppCompatActivity {
             Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);
             dbToast.show();
         }
+        initRecyclerView();
+    }
 
+    private void sortListItems(SQLiteOpenHelper dbHelper, String sortArgument) {
+        Log.d(TAG, "initListItems: called");
+        try {
+            String[] args = { sortArgument };
+            db = dbHelper.getReadableDatabase();
+            cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE type =?", args);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                mNames.add(cursor.getString(0));
+                mTypes.add(cursor.getString(1));
+                mImagesURLs.add(cursor.getString(2));
+                cursor.moveToNext();
+            }
+        } catch(SQLiteException e) {
+            Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);
+            dbToast.show();
+        }
         initRecyclerView();
     }
 
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: called");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mImagesURLs, mNames, mDescriptions, this);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mImagesURLs, mNames, mTypes, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -98,5 +146,7 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
         db.close();
     }
+
+
 }
 

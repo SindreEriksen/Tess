@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Created by Elise
+-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        />
+
+    <android.support.v7.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/cardView"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        card_view:cardBackgroundColor="#fff"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="4dp"
+        android:layout_below="@id/toolbar">
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/parent_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Header"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/demo_text"
+                android:textColor="#000"
+                android:textSize="22sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="1.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/img_header" />
+
+            <TextView
+                android:id="@+id/txt_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_name"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/long_demo_text"
+                android:textColor="#000"
+                android:textSize="14sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.069"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/txt_name" />
+
+            <TextView
+                android:id="@+id/lbl_prisnivå"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:text="@string/prisnivå"
+                card_view:layout_constraintEnd_toStartOf="@+id/lbl_type"
+                card_view:layout_constraintTop_toBottomOf="@+id/txt_description" />
+
+            <TextView
+                android:id="@+id/txt_prisnivå"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/demo_text"
+                card_view:layout_constraintEnd_toEndOf="@+id/lbl_prisnivå"
+                card_view:layout_constraintStart_toStartOf="@+id/lbl_prisnivå"
+                card_view:layout_constraintTop_toBottomOf="@+id/lbl_prisnivå" />
+
+            <TextView
+                android:id="@+id/lbl_utendørs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/utendørs"
+                card_view:layout_constraintStart_toEndOf="@+id/lbl_type"
+                card_view:layout_constraintTop_toBottomOf="@+id/txt_description" />
+
+            <TextView
+                android:id="@+id/txt_utendørs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/demo_text"
+                card_view:layout_constraintEnd_toEndOf="@+id/lbl_utendørs"
+                card_view:layout_constraintStart_toStartOf="@+id/lbl_utendørs"
+                card_view:layout_constraintTop_toBottomOf="@+id/lbl_utendørs" />
+
+            <TextView
+                android:id="@+id/lbl_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/type"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/txt_description" />
+
+            <TextView
+                android:id="@+id/txt_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/demo_text"
+                card_view:layout_constraintEnd_toEndOf="@+id/lbl_type"
+                card_view:layout_constraintStart_toStartOf="@+id/lbl_type"
+                card_view:layout_constraintTop_toBottomOf="@+id/lbl_type" />
+
+            <TextView
+                android:id="@+id/lbl_hjemmeside"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/hjemmeside"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/txt_prisnivå" />
+
+            <TextView
+                android:id="@+id/txt_hjemmeside"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/two_word_demo_text"
+                card_view:layout_constraintBottom_toTopOf="@+id/btn_material"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toEndOf="@+id/lbl_hjemmeside"
+                card_view:layout_constraintTop_toBottomOf="@+id/txt_utendørs"
+                card_view:layout_constraintVertical_bias="0.0"
+                tools:text="@string/two_word_demo_text" />
+
+            <android.support.design.button.MaterialButton
+                android:id="@+id/btn_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="16dp"
+                android:padding="5dp"
+                android:text="@string/send"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
