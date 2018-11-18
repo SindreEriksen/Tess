@@ -3,4 +3,11 @@
     <string name="title_activity_maps">Map</string>
     <string name="seKart">Se kart</string>
     <string name="demo_card_text">Demo card text</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="navigation_drawer_open">Åpne Meny</string>
+    <string name="navigation_drawer_close">Lukk Meny</string>
+    <string name="nav_header_title">Tess</string>
+    <string name="nav_header_subtitle">tess@tess.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Innstillinger</string>
 </resources>
