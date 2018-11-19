@@ -1,10 +1,8 @@
 package com.hfad.tess;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,12 +20,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private SQLiteDatabase db;
-    private Cursor cursor;
 
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mTypes = new ArrayList<>();
-    private ArrayList<String> mImagesURLs = new ArrayList<>();
 
     RecyclerView recyclerView;
 
@@ -41,19 +34,34 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Database
-        SQLiteOpenHelper dbHelper = new DBHelper(this);
+        Fragment fragment = new AktivitetFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.content_frame, fragment);
+        ft.commit();
 
-        //Prøver å opprette database og hente ut data. Sender feilmelding hvis det ikke går
-        try {
-            db = dbHelper.getReadableDatabase();
-        } catch(SQLiteException e) {
-            Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);
-            dbToast.show();
-        }
+// Metode for å sortere aktivitetene
+        button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
 
-        initListItems(dbHelper);
+            Fragment fragment = null;
+            Intent intent = null;
+            @Override
+            public void onClick(View v) {
+                fragment = new ParkFragment();
 
+                if(fragment != null) {
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.content_frame, fragment);
+                    ft.commit();
+                } else {
+                    startActivity(intent);
+                }
+            }
+        });
+
+
+
+/* KNAPPEN FOR Å SE TELEFONENS LAT/LONG
         button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,15 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-/* Metode for å sortere aktivitetene
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sortListItems(dbHelper, "Fornøyelsespark");
-            }
-        });
+*/
 
-        */
+
+
+
         if(recyclerView != null) {
             Log.d(TAG, "recyclerView is not empty");
         }
@@ -97,60 +101,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    private void initListItems(SQLiteOpenHelper dbHelper) {
-        Log.d(TAG, "initListItems: called");
-        try {
-        db = dbHelper.getReadableDatabase();
-        cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet", null);
-        cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                mNames.add(cursor.getString(0));
-                mTypes.add(cursor.getString(1));
-                mImagesURLs.add(cursor.getString(2));
-                cursor.moveToNext();
-            }
-        } catch(SQLiteException e) {
-            Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);
-            dbToast.show();
-        }
-        initRecyclerView();
-    }
-
-    private void sortListItems(SQLiteOpenHelper dbHelper, String sortArgument) {
-        Log.d(TAG, "initListItems: called");
-        try {
-            String[] args = { sortArgument };
-            db = dbHelper.getReadableDatabase();
-            cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE type =?", args);
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                mNames.add(cursor.getString(0));
-                mTypes.add(cursor.getString(1));
-                mImagesURLs.add(cursor.getString(2));
-                cursor.moveToNext();
-            }
-        } catch(SQLiteException e) {
-            Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);
-            dbToast.show();
-        }
-        initRecyclerView();
-    }
-
-    private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView: called");
-        recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mImagesURLs, mNames, mTypes, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
     public void onDestroy() {
         super.onDestroy();
-        cursor.close();
-        db.close();
     }
-
-
 }
 

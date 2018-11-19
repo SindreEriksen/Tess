@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,8 +42,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        CardView cv = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.card_list_item, parent, false);
+        ViewHolder holder = new ViewHolder(cv);
         return holder;
     }
 
@@ -84,13 +85,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        private CardView cardView;
+
         ImageView header_image;
         TextView txt_name;
         TextView txt_type;
         ConstraintLayout parent_layout;
         Button btn_lesMer;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull CardView itemView) {
             super(itemView);
             header_image = itemView.findViewById(R.id.img_header);
             txt_name = itemView.findViewById(R.id.txt_name);
