@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> mTypes = new ArrayList<>();
     private ArrayList<String> mImagesURLs = new ArrayList<>();
 
+    RecyclerView recyclerView;
+
     Button button, btn_lesMer;
     GPSLocation gps;
     @Override
@@ -74,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         */
-
+        if(recyclerView != null) {
+            Log.d(TAG, "recyclerView is not empty");
+        }
     } // end onCreate()
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: called");
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(mImagesURLs, mNames, mTypes, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
