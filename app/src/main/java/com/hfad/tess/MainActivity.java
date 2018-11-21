@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private DrawerLayout drawer;
 
+    Fragment fragment;
+
     Button button, btn_lesMer;
     GPSLocation gps;
     @Override
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Fragment fragment = new AktivitetFragment();
+        fragment = new AktivitetFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content_frame, fragment);
         ft.commit();
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment = null;
+        fragment = null;
         Intent intent = null;
 
         switch (id) {
@@ -101,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             default:
                 fragment = new AktivitetFragment();
         }
-
 
         if(fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onCreateOptionsMenu(menu);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item ) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_se_kart:
                 Intent intent = new Intent(this, MapsActivity.class);
