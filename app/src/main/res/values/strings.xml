@@ -19,6 +19,7 @@
     <string name="nav_header_subtitle">tess@tess.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Innstillinger</string>
+    <string name="hint">Send melding</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

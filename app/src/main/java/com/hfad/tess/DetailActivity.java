@@ -12,7 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,7 @@ public class DetailActivity extends AppCompatActivity {
     private Boolean outdoor;
     private TextView txt_name, txt_description, txt_prisnivå, txt_utendørs, txt_type, txt_hjemmeside;
     private ImageView img_header;
+    EditText messageView;
 
     private String id;
 
@@ -54,7 +57,7 @@ public class DetailActivity extends AppCompatActivity {
         //Prøver å opprette database og hente ut data. Sender feilmelding hvis det ikke går
         try {
             db = dbHelper.getReadableDatabase();
-        } catch(SQLiteException e) {
+        } catch (SQLiteException e) {
             Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);
             dbToast.show();
         }
@@ -68,7 +71,7 @@ public class DetailActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item ) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_se_kart:
                 Intent intent = new Intent(this, MapsActivity.class);
@@ -83,8 +86,8 @@ public class DetailActivity extends AppCompatActivity {
         Log.d(TAG, "initListItems: called");
         try {
             db = dbHelper.getReadableDatabase();
-            String[] args = { id };
-            cursor = db.rawQuery("Select navn, beskrivelse, type, hjemmeside, prisnivå, utendørs, bildeURL from aktivitet WHERE navn =?"  , args);
+            String[] args = {id};
+            cursor = db.rawQuery("Select navn, beskrivelse, type, hjemmeside, prisnivå, utendørs, bildeURL from aktivitet WHERE navn =?", args);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 name = cursor.getString(0);
@@ -96,7 +99,7 @@ public class DetailActivity extends AppCompatActivity {
                 imageURL = cursor.getString(6);
                 cursor.moveToNext();
             }
-        } catch(SQLiteException e) {
+        } catch (SQLiteException e) {
             Toast dbToast = Toast.makeText(this, "Database Unavailable", Toast.LENGTH_SHORT);
             dbToast.show();
         }
@@ -139,6 +142,16 @@ public class DetailActivity extends AppCompatActivity {
         super.onDestroy();
         cursor.close();
         db.close();
+    }
+
+    public void onSendMessage(View view){
+        EditText messageView =(EditText)findViewById(R.id.message1);
+        String messageText = messageView.getText().toString();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, messageText);
+        startActivity(intent);
+
     }
 
 
