@@ -19,7 +19,6 @@
             android:id="@+id/img_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="Header"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
@@ -30,29 +29,33 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/demo_card_text"
             android:textColor="#000"
             android:textSize="22sp"
-            card_view:layout_constraintBottom_toBottomOf="parent"
+
             card_view:layout_constraintEnd_toStartOf="@+id/btn_material"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/img_header" />
+            card_view:layout_constraintTop_toBottomOf="@+id/img_header"
+            card_view:layout_constraintTop_toTopOf="@id/btn_material"
+            card_view:layout_constraintBottom_toBottomOf="@id/btn_material"/>
 
         <android.support.design.button.MaterialButton
             android:id="@+id/btn_material"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:background="@color/Indigo"
             android:padding="5dp"
             android:text="@string/lesMer"
+            android:textColor="@color/buttonColor"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/txt_name"
-            card_view:layout_constraintTop_toBottomOf="@+id/img_header"
-            card_view:layout_constraintVertical_bias="1.0" />
+            card_view:layout_constraintTop_toBottomOf="@+id/img_header" />
 
     </android.support.constraint.ConstraintLayout>
 
