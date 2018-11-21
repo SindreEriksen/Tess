@@ -153,7 +153,7 @@ public class DetailActivity extends AppCompatActivity {
         String chooserTitle = getString(R.string.chooser);
         Intent choseIntent = Intent.createChooser(intent,chooserTitle);
         startActivity(choseIntent);
-
+//
     }
 
 }
