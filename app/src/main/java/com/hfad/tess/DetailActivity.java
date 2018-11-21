@@ -145,11 +145,13 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void onSendMessage(View view){
-        EditText messageView =(EditText)findViewById(R.id.message1);
-        String messageText = messageView.getText().toString();
+        //EditText messageView =(EditText)findViewById(R.id.message1);
+        //String messageText = messageView.getText().toString();
+
+        String message = "La oss dra til " + name;
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, messageText);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
         startActivity(intent);
 
     }

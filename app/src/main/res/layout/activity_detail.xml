@@ -161,26 +161,33 @@ Created by Elise
                 card_view:layout_constraintTop_toBottomOf="@+id/txt_utendørs"
                 card_view:layout_constraintVertical_bias="0.0"
                 tools:text="@string/two_word_demo_text" />
+
             <EditText
                 android:id="@+id/message1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="@string/hint"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:ems="10"
-                />
+                android:hint="@string/hint"
+                card_view:layout_constraintEnd_toStartOf="@+id/btn_sendMelding"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/txt_hjemmeside" />
 
             <android.support.design.button.MaterialButton
                 android:id="@+id/btn_sendMelding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="16dp"
+                android:onClick="onSendMessage"
                 android:padding="5dp"
                 android:text="@string/send"
-                android:onClick="onSendMessage"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent" />
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/txt_hjemmeside" />
 
 
         </android.support.constraint.ConstraintLayout>
