@@ -5,21 +5,52 @@
 
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/nav_camera"
-                android:icon="@drawable/ic_menu_camera"
-                android:title="Ute aktiviteter"/>
+            android:id="@+id/nav_utendørs"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Vis kun utendørs"/>
         <item
-                android:id="@+id/nav_gallery"
-                android:icon="@drawable/ic_menu_gallery"
-                android:title="Inne aktiviteter"/>
+            android:id="@+id/nav_innendørs"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Vis kun innendørs"/>
+
+        <item android:title="Prisnivå"/>
+
         <item
-                android:id="@+id/nav_slideshow"
-                android:icon="@drawable/ic_menu_slideshow"
-                android:title="Ute og inne aktiviteter"/>
+            android:id="@+id/nav_gratis"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Gratis"/>
+
         <item
-                android:id="@+id/nav_manage"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Verktøy"/>
+            android:id="@+id/nav_lav"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Lav"/>
+
+        <item
+            android:id="@+id/nav_middels"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Middels"/>
+
+        <item
+            android:id="@+id/nav_høy"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Høy"/>
+
+        <item android:title="Typer aktiviteter"/>
+
+        <item
+            android:id="@+id/nav_fornøyelsesparker"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Fornøyelsesparker"/>
+        <item
+            android:id="@+id/nav_badeland"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Badeland"/>
+
+        <item
+            android:id="@+id/nav_fjelltur"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Fjelltur"/>
+
     </group>
 
     <item android:title="Del dine opplevelser">

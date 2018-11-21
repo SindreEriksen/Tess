@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        fragment = new AktivitetFragment();
+        fragment = AktivitetFragment.newInstance("");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content_frame, fragment);
         ft.commit();
@@ -94,11 +94,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = null;
 
         switch (id) {
-            case R.id.nav_camera:
-                fragment = new ParkFragment();
+            case R.id.nav_utendørs:
+                fragment = AktivitetFragment.newInstance("Utendørs");
                 break;
-            case R.id.nav_gallery:
-                fragment = new AktivitetFragment();
+            case R.id.nav_innendørs:
+                fragment = AktivitetFragment.newInstance("Innendørs");
+                break;
+            case R.id.nav_fornøyelsesparker:
+                fragment = AktivitetFragment.newInstance("Fornøyelsespark");
+                break;
+            case R.id.nav_badeland:
+                fragment = AktivitetFragment.newInstance("Badeland");
+                break;
+            case R.id.nav_fjelltur:
+                fragment = AktivitetFragment.newInstance("Fjelltur");
+                break;
+            case R.id.nav_gratis:
+                fragment = AktivitetFragment.newInstance("Gratis");
+                break;
+            case R.id.nav_lav:
+                fragment = AktivitetFragment.newInstance("Lav");
+                break;
+            case R.id.nav_middels:
+                fragment = AktivitetFragment.newInstance("Middels");
+                break;
+            case R.id.nav_høy:
+                fragment = AktivitetFragment.newInstance("Høy");
                 break;
             default:
                 fragment = new AktivitetFragment();
@@ -118,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     } // end onNavigationItemSelected
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.navigation, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -127,8 +148,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.action_se_kart:
                 Intent intent = new Intent(this, MapsActivity.class);
                 startActivity(intent);
-                return true;
-            case R.id.action_settings:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

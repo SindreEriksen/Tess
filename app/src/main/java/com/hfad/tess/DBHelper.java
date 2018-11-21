@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_name = "DB5";
-    private static final int DB_version = 2;
+    private static final int DB_version = 3;
 
     private String createAktivitetQuery = "CREATE TABLE aktivitet (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                                             + "navn TEXT,"
@@ -75,6 +75,8 @@ public class DBHelper extends SQLiteOpenHelper {
             insertAktivitet(db, "Mørkonga", "Fjelltur i Hole kommune. Mørkgonga er en markert sprekk i lavaplata som dekker Krokskogen og ligger øverst i bratthenget mellom Gyrihaugen og Steinsfjorden i Åsa.", "Fjelltur", "https://www.ut.no/tur/2.1788/", "Gratis", true,  60.0991058,10.3789956, "https://assets.simpleviewcms.com/simpleview/image/fetch/c_fill,f_jpg,h_605,q_65,w_1200/https://media.newmindmedia.com/TellUs/image/%3Ffile%3DM_rkonga_883084057.png%26dh%3D537%26dw%3D647%26t%3D4");
         }
         if (oldVersion < 3) {
+
+            insertAktivitet(db, "Pirbadet", "Badeland i Trondheim. Vann og moro for voksne og barn.", "Badeland", "https://www.pirbadet.no", "Middels", false,  63.4402936,10.398317, "https://tse3.mm.bing.net/th?id=OIP.LazR6U0fE1hENJPo8xVKawHaE8&pid=15.1&P=0&w=241&h=162");
         }
         if (oldVersion < 4) {
         }

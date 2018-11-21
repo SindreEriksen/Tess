@@ -22,6 +22,8 @@ import java.util.ArrayList;
  */
 public class AktivitetFragment extends Fragment {
 
+    private static final String EXTRA_ARG_CODE = null;
+
     private SQLiteDatabase db;
     private Cursor cursor;
 
@@ -31,6 +33,25 @@ public class AktivitetFragment extends Fragment {
 
     public AktivitetFragment() {
         // Required empty public constructor
+    }
+
+    public static final AktivitetFragment newInstance(String argument) {
+        AktivitetFragment fragment = new AktivitetFragment();
+
+        final Bundle args = new Bundle(1);
+        args.putString(EXTRA_ARG_CODE, argument);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    private String argument;
+    String[] queryArgument;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        argument = getArguments().getString(EXTRA_ARG_CODE);
     }
 
     @Override
@@ -62,7 +83,48 @@ public class AktivitetFragment extends Fragment {
     private void initListItems(SQLiteOpenHelper dbHelper) {
         try {
             db = dbHelper.getReadableDatabase();
-            cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet", null);
+
+            switch (argument) {
+                case "Fornøyelsespark":
+                    String[] args = {"Fornøyelsespark"};
+                    cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE type =?", args);
+                    break;
+                case "Badeland":
+                    String[] args2 = {"Badeland"};
+                    cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE type =?", args2);
+                    break;
+                case "Fjelltur":
+                    String[] args21 = {"Fjelltur"};
+                    cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE type =?", args21);
+                    break;
+                case "Utendørs":
+                    String[] args3 = {"1"};
+                    cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE utendørs =?", args3);
+                    break;
+                case "Innendørs":
+                    String[] args4 = {"0"};
+                    cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE utendørs =?", args4);
+                    break;
+                case "Gratis":
+                    String[] args5 = {"Gratis"};
+                    cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE prisnivå =?", args5);
+                    break;
+                case "Lav":
+                    String[] args6 = {"Lav"};
+                    cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE prisnivå =?", args6);
+                    break;
+                case "Middels":
+                    String[] args7 = {"Middels"};
+                    cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE prisnivå =?", args7);
+                    break;
+                case "Høy":
+                    String[] args8 = {"Høy"};
+                    cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet WHERE prisnivå =?", args8);
+                    break;
+                default:
+                    cursor = db.rawQuery("Select navn, type, bildeURL from aktivitet", null);
+            }
+
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 mNames.add(cursor.getString(0));

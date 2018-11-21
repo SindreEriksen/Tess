@@ -27,20 +27,20 @@ public class DetailActivity extends AppCompatActivity {
     private SQLiteDatabase db;
     private Cursor cursor;
 
-    private String name, description, imageURL, price, type, homepage;
-    private Boolean outdoor;
+    private String id, name, description, imageURL, price, type, homepage;
+    private int outdoor;
     private TextView txt_name, txt_description, txt_prisnivå, txt_utendørs, txt_type, txt_hjemmeside;
     private ImageView img_header;
-    EditText messageView;
-
-    private String id;
-
 
     Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        id = intent.getExtras().getString("id");
+        setTitle(id);
         setContentView(R.layout.activity_detail);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -48,8 +48,7 @@ public class DetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Intent intent = getIntent();
-        id = intent.getExtras().getString("id");
+
 
         //Database
         SQLiteOpenHelper dbHelper = new DBHelper(this);
@@ -95,7 +94,8 @@ public class DetailActivity extends AppCompatActivity {
                 type = cursor.getString(2);
                 homepage = cursor.getString(3);
                 price = cursor.getString(4);
-                outdoor = Boolean.parseBoolean(cursor.getString(5));
+                outdoor = cursor.getInt(5);
+                Log.d(TAG, "boolean: " +outdoor);
                 imageURL = cursor.getString(6);
                 cursor.moveToNext();
             }
@@ -123,13 +123,13 @@ public class DetailActivity extends AppCompatActivity {
         txt_prisnivå = findViewById(R.id.txt_prisnivå);
         txt_prisnivå.setText(price);
         txt_utendørs = findViewById(R.id.txt_utendørs);
-        /*
-        if (outdoor == false) {
+
+        if (outdoor == 0) {
             txt_utendørs.setText("Innendørs");
         } else {
             txt_utendørs.setText("Utendørs");
         }
-        */
+
         txt_type = findViewById(R.id.txt_type);
         txt_type.setText(type);
         txt_hjemmeside = findViewById(R.id.txt_hjemmeside);

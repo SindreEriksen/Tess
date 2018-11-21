@@ -40,7 +40,7 @@ Created by Elise
                 android:id="@+id/img_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="Header"
+                android:contentDescription="@string/header_image"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
@@ -95,13 +95,20 @@ Created by Elise
                 card_view:layout_constraintStart_toStartOf="@+id/lbl_prisnivå"
                 card_view:layout_constraintTop_toBottomOf="@+id/lbl_prisnivå" />
 
+            <View
+                style="@style/VerticalDivider"
+                card_view:layout_constraintEnd_toStartOf="@+id/lbl_type"
+                card_view:layout_constraintStart_toEndOf="@+id/lbl_prisnivå"
+                card_view:layout_constraintTop_toBottomOf="@+id/txt_description" />
+
+
             <TextView
                 android:id="@+id/lbl_utendørs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/utendørs"
+                android:text="@string/inne_ute"
                 card_view:layout_constraintStart_toEndOf="@+id/lbl_type"
                 card_view:layout_constraintTop_toBottomOf="@+id/txt_description" />
 
@@ -109,11 +116,16 @@ Created by Elise
                 android:id="@+id/txt_utendørs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:text="@string/demo_text"
                 card_view:layout_constraintEnd_toEndOf="@+id/lbl_utendørs"
                 card_view:layout_constraintStart_toStartOf="@+id/lbl_utendørs"
                 card_view:layout_constraintTop_toBottomOf="@+id/lbl_utendørs" />
+
+            <View
+                style="@style/VerticalDivider"
+                card_view:layout_constraintEnd_toStartOf="@+id/lbl_utendørs"
+                card_view:layout_constraintStart_toEndOf="@+id/lbl_type"
+                card_view:layout_constraintTop_toBottomOf="@+id/txt_description" />
 
             <TextView
                 android:id="@+id/lbl_type"
@@ -155,23 +167,21 @@ Created by Elise
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/two_word_demo_text"
-                card_view:layout_constraintBottom_toTopOf="@+id/btn_material"
+                card_view:layout_constraintBottom_toTopOf="@+id/btn_sendMelding"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toEndOf="@+id/lbl_hjemmeside"
                 card_view:layout_constraintTop_toBottomOf="@+id/txt_utendørs"
-                card_view:layout_constraintVertical_bias="0.0"
-                tools:text="@string/two_word_demo_text" />
+                card_view:layout_constraintVertical_bias="0.0" />
 
-            <EditText
-                android:id="@+id/message1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <View
+                android:id="@+id/view2"
+                style="@style/HorizontalDivider"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:ems="10"
-                android:hint="@string/hint"
-                card_view:layout_constraintEnd_toStartOf="@+id/btn_sendMelding"
+                android:layout_marginBottom="8dp"
+                card_view:layout_constraintBottom_toTopOf="@+id/btn_sendMelding"
+                card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/txt_hjemmeside" />
 
@@ -179,15 +189,13 @@ Created by Elise
                 android:id="@+id/btn_sendMelding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="8dp"
                 android:onClick="onSendMessage"
                 android:padding="5dp"
                 android:text="@string/send"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/txt_hjemmeside" />
+                card_view:layout_constraintEnd_toEndOf="parent" />
 
 
         </android.support.constraint.ConstraintLayout>

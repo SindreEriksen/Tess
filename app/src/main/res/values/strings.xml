@@ -7,7 +7,7 @@
     <string name="two_word_demo_text">Demnonstasjon demo</string>
     <string name="demo_text">Demo</string>
     <string name="send">Send melding</string>
-    <string name="utendørs">Inne/ute?</string>
+    <string name="inne_ute">Inne/ute</string>
     <string name="prisnivå">Prisnivå:</string>
     <string name="type">Type aktivitet:</string>
     <string name="lesMer">Les mer</string>
@@ -19,8 +19,11 @@
     <string name="nav_header_subtitle">tess@tess.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Innstillinger</string>
-    <string name="hint">Send melding</string>
+    <string name="del">Send melding</string>
     <string name="chooser">Send via:</string>
+    <string name="header_image">Header image</string>
+    <string name="innendørs">Innendørs</string>
+    <string name="utendørs">Utendørs</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
