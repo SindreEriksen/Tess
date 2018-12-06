@@ -6,49 +6,49 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_utendørs"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_outdoor"
             android:title="Vis kun utendørs"/>
         <item
             android:id="@+id/nav_innendørs"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_inside"
             android:title="Vis kun innendørs"/>
 
         <item android:title="Prisnivå"/>
 
         <item
             android:id="@+id/nav_gratis"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_free"
             android:title="Gratis"/>
 
         <item
             android:id="@+id/nav_lav"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_cost"
             android:title="Lav"/>
 
         <item
             android:id="@+id/nav_middels"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_cost"
             android:title="Middels"/>
 
         <item
             android:id="@+id/nav_høy"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_cost"
             android:title="Høy"/>
 
         <item android:title="Typer aktiviteter"/>
 
         <item
             android:id="@+id/nav_fornøyelsesparker"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_happy"
             android:title="Fornøyelsesparker"/>
         <item
             android:id="@+id/nav_badeland"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_bade"
             android:title="Badeland"/>
 
         <item
             android:id="@+id/nav_fjelltur"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_mountain"
             android:title="Fjelltur"/>
 
     </group>
