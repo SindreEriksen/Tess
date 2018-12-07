@@ -6,6 +6,7 @@ package com.hfad.tess;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+
+import static android.graphics.Color.BLUE;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
@@ -44,6 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         CardView cv = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.card_list_item, parent, false);
         ViewHolder holder = new ViewHolder(cv);
+
         return holder;
     }
 

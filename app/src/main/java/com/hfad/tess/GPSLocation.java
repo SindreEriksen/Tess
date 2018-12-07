@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class GPSLocation extends Service implements LocationListener {
     private final Context context;
@@ -27,6 +28,7 @@ public class GPSLocation extends Service implements LocationListener {
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
+    public ArrayList<Double> Distance = new ArrayList<>();
 
     protected LocationManager locationManager;
 
@@ -137,6 +139,27 @@ public class GPSLocation extends Service implements LocationListener {
 
         alertdialg.show();
     }
+
+
+    public void getdistance() {
+        getLocation();
+
+        double phoneLat = latitude;
+        double phoneLong = longitude;
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
 
     @Nullable
     @Override
