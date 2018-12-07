@@ -192,7 +192,7 @@ Created by Elise
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="8dp"
                 android:onClick="onSendMessage"
-                android:background="#1A237E"
+                android:background="#1a237e"
                 android:textColor="#FFFFFF"
                 android:padding="5dp"
                 android:text="@string/send"

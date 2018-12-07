@@ -147,7 +147,13 @@ public class GPSLocation extends Service implements LocationListener {
         double phoneLat = latitude;
         double phoneLong = longitude;
 
-
+       /* String latlong[][] = MapsActivity.getLatLongs();
+        int i = 0;
+        while (i<5) {
+            Double locationlat = Double.parseDouble(latlong[i][1]);
+            Double locationlng = Double.parseDouble(latlong[i][2]);
+            i++;
+        } */
 
 
     }

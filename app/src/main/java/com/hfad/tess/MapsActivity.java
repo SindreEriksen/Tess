@@ -1,8 +1,6 @@
 package com.hfad.tess;
 
-/**
- * Created by Elise
- */
+
 
 import android.content.pm.PackageManager;
 import android.database.Cursor;
